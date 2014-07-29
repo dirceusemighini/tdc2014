@@ -68,15 +68,28 @@ trait DemoService extends HttpService {
         path("fail") {
           failWith(new RuntimeException("aaaahhh"))
         }
+
     } ~
       (post | parameter('method ! "post")) {
         path("stop") {
           complete {
-            in(1.second){ actorSystem.shutdown() }
+            in(1.second) {
+              actorSystem.shutdown()
+            }
             "Terminando em 1 segundo..."
           }
         }
+
+      }~ post {
+
+      pathPrefix("checkUser" / IntNumber) {
+        uuid =>
+
+        complete {
+          s"Checkuser $abc"
+        }
       }
+    }
   }
 
   lazy val simpleRouteCache = routeCache()
@@ -102,14 +115,14 @@ trait DemoService extends HttpService {
 
   implicit val statsMarshaller: Marshaller[Stats] =
     Marshaller.delegate[Stats, String](ContentTypes.`text/plain`) { stats =>
-      "Uptime                : " + stats.uptime.formatHMS + '\n' +
-        "Total requests        : " + stats.totalRequests + '\n' +
-        "Open requests         : " + stats.openRequests + '\n' +
-        "Max open requests     : " + stats.maxOpenRequests + '\n' +
-        "Total connections     : " + stats.totalConnections + '\n' +
-        "Open connections      : " + stats.openConnections + '\n' +
-        "Max open connections  : " + stats.maxOpenConnections + '\n' +
-        "Requests timed out    : " + stats.requestTimeouts + '\n'
+      "Tempo de Funcionamento                : " + stats.uptime.formatHMS + '\n' +
+        "Total de requisicoes               : " + stats.totalRequests + '\n' +
+        "Requisicoes abertas                : " + stats.openRequests + '\n' +
+        "Maximo de requisicoes abertas      : " + stats.maxOpenRequests + '\n' +
+        "Total de conexoes                  : " + stats.totalConnections + '\n' +
+        "Conexoes abertas                   : " + stats.openConnections + '\n' +
+        "Numero maximo de conexoes abertas  : " + stats.maxOpenConnections + '\n' +
+        "Requisicoes com timeout            : " + stats.requestTimeouts + '\n'
     }
 
   def in[U](duration: FiniteDuration)(body: => U): Unit =

@@ -15,3 +15,5 @@ libraryDependencies += "com.typesafe.akka"                       %%  "akka-actor
 libraryDependencies += "com.typesafe.akka"                       %%  "akka-slf4j"                  % "2.3.4"
 
 libraryDependencies += "com.typesafe.akka"                       %%  "akka-testkit"                % "2.3.4"
+
+libraryDependencies += "com.livestream" %% "scredis" % "2.0.0-RC1"
