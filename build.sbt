@@ -17,3 +17,5 @@ libraryDependencies += "com.typesafe.akka"                       %%  "akka-slf4j
 libraryDependencies += "com.typesafe.akka"                       %%  "akka-testkit"                % "2.3.4"
 
 libraryDependencies += "com.livestream" %% "scredis" % "2.0.0-RC1"
+
+libraryDependencies += "net.debasishg" % "redisclient_2.10" % "2.13"

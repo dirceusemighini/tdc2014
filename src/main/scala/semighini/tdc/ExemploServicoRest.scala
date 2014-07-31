@@ -1,6 +1,8 @@
 package semighini.tdc
 
 
+import java.util.UUID
+
 import akka.actor.Actor
 
 import scala.concurrent.duration._
@@ -80,15 +82,13 @@ trait DemoService extends HttpService {
           }
         }
 
-      }~ post {
+      }~ (post | parameter('id.as[String])  ) {
 
-      pathPrefix("checkUser" / IntNumber) {
-        uuid =>
 
         complete {
-          s"Checkuser $abc"
+          s"Checkuser $id"
         }
-      }
+
     }
   }
 
