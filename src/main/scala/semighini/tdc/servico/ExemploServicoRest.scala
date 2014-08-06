@@ -1,21 +1,16 @@
-package semighini.tdc
+package semighini.tdc.servico
 
-
-import java.util.UUID
-
-import akka.actor.Actor
-
-import scala.concurrent.duration._
 import akka.actor._
-import akka.pattern.ask
-import spray.routing.{HttpService}
-import spray.routing.directives.CachingDirectives
-import spray.can.server.Stats
 import spray.can.Http
-import spray.httpx.marshalling.Marshaller
-import spray.util._
+import spray.can.server.Stats
 import spray.http._
-import CachingDirectives._
+import spray.httpx.marshalling.Marshaller
+import spray.routing.HttpService
+import spray.routing.directives.CachingDirectives._
+import spray.util._
+
+import akka.pattern.ask
+import scala.concurrent.duration._
 /**
  * Created by dirceu on 7/24/14.
  */
@@ -51,9 +46,7 @@ trait DemoService extends HttpService {
         } ~
         path("stats") {
           complete {
-            actorRefFactory.actorSelection("/user/IO-HTTP/listener-0")
-              .ask(Http.GetStats)(1.second)
-              .mapTo[Stats]
+            actorRefFactory.actorSelection("/user/IO-HTTP/listener-0").ask(Http.GetStats)(1.second).mapTo[Stats]
           }
         } ~
         path("cached") {
@@ -82,14 +75,7 @@ trait DemoService extends HttpService {
           }
         }
 
-      }~ (post | parameter('id.as[String])  ) {
-
-
-        complete {
-          s"Checkuser $id"
-        }
-
-    }
+      }
   }
 
   lazy val simpleRouteCache = routeCache()
