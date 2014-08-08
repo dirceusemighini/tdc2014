@@ -4,7 +4,7 @@ package semighini.tdc.servico
 import akka.actor.ActorRef
 import akka.util.Timeout
 import semighini.tdc.JsonFormatter
-import semighini.tdc.atores.UserMessages.{GetUser, DelUser, SetUser}
+import semighini.tdc.atores.MensagensUsuario.{GetUser, DelUser, SetUser}
 import semighini.tdc.modelo.Usuario
 
 import scala.concurrent.ExecutionContext
@@ -16,18 +16,17 @@ import spray.routing.Directives
 import spray.http._
 import MediaTypes._
 
-import java.util.UUID
 import scala.util.{Failure, Success}
 import spray.json._
-      import DefaultJsonProtocol._
-                                 import spray.httpx.SprayJsonSupport._
+import DefaultJsonProtocol._
+import spray.httpx.SprayJsonSupport._
 
 
 /**
  * Created by dirceu on 8/5/14.
  */
 class ServicoUsuario(atorUsuario:ActorRef)(implicit executionContext: ExecutionContext) extends Directives with DefaultJsonProtocol
-with JsonFormatter// with CustomDeselializers
+with JsonFormatter
 {
 
     // Request Timeout
@@ -45,12 +44,9 @@ with JsonFormatter// with CustomDeselializers
      * <li>POST   usuario/v1/sessao                    </li>
      * <li>GET    usuario/v1/sessao/<JavaUUID>         </li>
      * <li>DELETE usuario/v1/sessao/<JavaUUID>         </li>
-     * <li>POST   usuario/v1/personagem?key=<JavaUUID> </li> //TODO CHANGE THIS
-     * <li>GET    usuario/v1/vinculos/<JavaUUID>       </li>
-     * <li>POST   usuario/v1/vinculos                  </li>
      * </ul>
      */
-    val route =
+    val rota =
       pathPrefix("usuario" / "v1") {
         path("sessao") {
           respondWithMediaType(`application/json`) {

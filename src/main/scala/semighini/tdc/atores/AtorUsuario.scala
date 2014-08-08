@@ -2,17 +2,19 @@ package semighini.tdc.atores
 
 
 import akka.actor.{ActorLogging, Actor}
-import semighini.tdc.atores.UserMessages.{GetUser, SetUser, DelUser}
+import semighini.tdc.atores.MensagensUsuario.{GetUser, SetUser, DelUser}
 
 import semighini.tdc.modelo.Usuario
 import com.redis._
      import java.util.UUID
 
+import spray.routing.directives.FutureDirectives
+
 /**
  * Created by dirceu on 8/5/14.
  */
 
-object UserMessages{
+object MensagensUsuario{
 
   case class SetUser(user: Usuario)
 
@@ -22,7 +24,7 @@ object UserMessages{
 
 
 }
-class UserActor extends Actor with ActorLogging{
+class AtorUsuario extends Actor with ActorLogging {
 
   val host = "localhost"
   val port = 6379
