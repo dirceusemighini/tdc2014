@@ -21,7 +21,6 @@ import scala.util.{Failure, Success}
 class ServicoEmpresa(company: ActorRef)(implicit executionContext: ExecutionContext) extends Directives
 with DefaultJsonProtocol
 with JsonFormatter
-
 {
 
   /**
